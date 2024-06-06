@@ -1,0 +1,114 @@
+<templates>
+  <t t-name="owlKartRoot">
+      <OwlKartNavbar searchProduct="this.state.searchProduct"/>
+      <KartContainer ProductDb="this.state.ProductArray" addProduct="this.state.addProduct"/>
+      <OwlKartFooter/>
+  </t>
+
+<t t-name="owlKartNavbar">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand mx-2" href="#">
+            <img src="/components/owl_1f989.png" alt="OwlKart Logo" style="height: 30px;"/>
+            OwlKart
+            <img src="/components/owl_1f989.png" alt="OwlKart Logo" style="height: 30px;"/>
+        </a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Today's Deals</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0 mx-auto w-50">
+                <div class="input-group w-100">
+                    <input t-ref="SearchInput" class="form-control" type="search" placeholder="What are you looking for today?" aria-label="Search"/>
+                    <div class="input-group-append mx-2 btn btn-warning" t-on-click="() => props.searchProduct(this.inputRef.el.value)">Search</div>
+                </div>
+            </form>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">My Account</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</t>
+
+
+  <t t-name="owlKartFooter">
+    <footer class="bg-dark text-white text-center py-3">
+        <div class="container">
+          <ul class="nav justify-content-center">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+    </footer>
+  </t>  
+
+  <t t-name="owlKartContainer">
+    <div class="container m-5">
+        <div class="row">
+            <t t-foreach="props.ProductDb" t-as="product_json" t-key="product_json.id">
+
+                <!-- <ProductDisplay name="product_json.name" descr="product_json.description" prod_img="product_json.image" price="product_json.price"/> -->
+
+                <ProductDisplay name="product_json.title" descr="product_json.description" prod_img="product_json.image" price="product_json.price"/>
+
+            </t>
+  
+        </div>
+            <form class="form-inline my-2 my-lg-0 mx-auto w-50">
+                <div class="input-group w-100">
+                    <input t-ref="ProductInput" class="form-control" placeholder="Feed me a product Json" aria-label="Search"/>
+                    <div class="input-group-append mx-2 btn btn-warning" t-on-click="() => props.addProduct(this.productInput.el.value)" >Add Product
+                    </div>
+                </div>
+            </form>
+
+
+            <h5>Showing <t t-esc="props.ProductDb.length"/> Products</h5>
+
+    </div>
+  </t>
+
+  <t t-name="owlKartProductDisplay">
+     <div class="col-md-4">
+        <div class="card mb-4 shadow-sm fixed-height-card">
+            <img loading="lazy" t-attf-src="{{ props.prod_img }}" class="card-img-top" alt="Product Image"/>
+            <div class="card-body">
+                <h5 class="card-title" t-esc="props.name"/>
+                <p class="card-text" t-esc="props.descr"/>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">View Details</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Add to Cart</button>
+                    </div>
+                    <small class="text-muted">
+                        <span class="badge rounded-pill bg-primary">
+&#36;<t t-esc="props.price"/>
+                        </span>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+     
+  </t>
+</templates>

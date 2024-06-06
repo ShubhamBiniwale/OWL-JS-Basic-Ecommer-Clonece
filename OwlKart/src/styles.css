@@ -1,0 +1,22 @@
+.fixed-height-card {
+    height: 300px; /* Set a fixed height for the card */
+    display: flex;
+    flex-direction: column;
+}
+ .fixed-height-card img {
+    height: 300px; /* Set a fixed height for the image */
+    width: 100%; /* Set the width to 100% of the parent container */
+    object-fit: cover; /* Ensure the image covers the specified height and width without distortion */
+}
+.fixed-height-card .card-body {
+    flex-grow: 1; /* Allow the body to grow and fill the remaining space */
+}
+.card-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+
